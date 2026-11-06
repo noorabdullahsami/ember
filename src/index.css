@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --color-ink: #1C1917;
+  --color-muted: #57534E;
+  --color-hairline: #E7E5E4;
+  --color-sunk: #FAF9FC;
+}
+
+:root {
+  --bg-gradient: linear-gradient(160deg, #FDF2F8 0%, #FFFFFF 45%, #F5F3FF 100%);
+  color: #1C1917;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root { height: 100%; margin: 0; }
+body { background: #E9E6EE; overscroll-behavior: none; }
+
+/* Phone frame: full-bleed on phones, a centered device on anything wider. */
+.phone {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  background: var(--bg-gradient);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 480px) {
+  #root { display: grid; place-items: center; }
+  .phone {
+    width: 390px;
+    height: min(844px, calc(100dvh - 32px));
+    border-radius: 44px;
+    box-shadow: 0 0 0 10px #1C1917, 0 30px 80px -20px rgba(28, 25, 23, 0.45);
+  }
+}
+
+:focus-visible { outline: 2px solid #1C1917; outline-offset: 2px; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes from-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes from-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes bloom-in { 0% { opacity: 0; transform: scale(0.6); filter: blur(8px); } 100% { opacity: 1; transform: none; filter: none; } }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
+@keyframes halo { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.08); } }
+.anim-rise { animation: rise 600ms cubic-bezier(.2,.7,.2,1) both; }
+.anim-fade { animation: fade 500ms ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+}
